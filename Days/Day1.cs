@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Advent_of_Coding_2024.Days
+﻿namespace Advent_of_Coding_2024.Days
 {
     internal class Day1 : Day
     {
@@ -18,14 +12,14 @@ namespace Advent_of_Coding_2024.Days
         public void Star2()
         {
             var (left, right) = GetLists();
-            Console.WriteLine(left.Sum(n => right.Where(c => c == n).Count() * n));
+            Console.WriteLine(left.Sum(n => right.Count(c => c == n) * n));
         }
 
-        private (List<int> left, List<int> right) GetLists()
+        private static (List<int> left, List<int> right) GetLists()
         {
             var input = Input.Get("Day1");
-            List<int> leftList = new List<int>();
-            List<int> rightList = new List<int>();
+            List<int> leftList = new();
+            List<int> rightList = new();
 
             foreach (var item in input)
             {

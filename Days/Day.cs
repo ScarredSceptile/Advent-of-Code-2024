@@ -2,7 +2,7 @@
 {
     internal interface Day
     {
-        internal void Star1();
-        internal void Star2();
+        public void Star1();
+        public void Star2();
     }
 }

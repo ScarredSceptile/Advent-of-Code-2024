@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace Advent_of_Coding_2024.Days
 {
@@ -6,13 +7,13 @@ namespace Advent_of_Coding_2024.Days
     {
         public void Star1()
         {
-            var input = Input.Get("Day6");
+            var input = Input.Get("Day6").Select(n => n.ToArray()).ToArray();
             Console.WriteLine(GetVisits(input, out _).Sum(n => n.Where(v => v).Count()));
         }
 
         public void Star2()
         {
-            var input = Input.Get("Day6");
+            var input = Input.Get("Day6").Select(n => n.ToArray()).ToArray();
             var visited = GetVisits(input, out var origPos);
             int loops = 0;
             for (int i = 0; i < input.Length; i++)
@@ -21,10 +22,7 @@ namespace Advent_of_Coding_2024.Days
                 {
                     if (input[i][j] == '#' || (i, j) == origPos || visited[i][j] == false) continue;
                     List<((int X, int Y) pos, (int X, int Y) dir)> turns = new();
-                    StringBuilder sb = new StringBuilder(input[i]);
-                    var map = input.ToArray();
-                    sb[j] = '#';
-                    map[i] = sb.ToString();
+                    input[i][j] = '#';
                     var dir = (X: -1, Y: 0);
                     var pos = origPos;
 
@@ -35,7 +33,7 @@ namespace Advent_of_Coding_2024.Days
                         var nextPos = (X: x, Y: y);
                         if (!InRange(nextPos, input))
                             break;
-                        if (map[nextPos.X][nextPos.Y] == '#')
+                        if (input[nextPos.X][nextPos.Y] == '#')
                         {
                             if (turns.Any(n => n.pos == pos && n.dir == dir))
                             {
@@ -51,12 +49,14 @@ namespace Advent_of_Coding_2024.Days
                             pos.Y += dir.Y;
                         }
                     }
+
+                    input[i][j] = '.';
                 }
             }
             Console.WriteLine(loops);
         }
 
-        private bool[][] GetVisits(string[] input, out (int X, int Y) start)
+        private bool[][] GetVisits(char[][] input, out (int X, int Y) start)
         {
             bool[][] visited = new bool[input.Length][];
             for (int i = 0; i < input.Length; i++)
@@ -87,12 +87,12 @@ namespace Advent_of_Coding_2024.Days
             return visited;
         }
 
-        private bool InRange((int X, int Y) pos, string[] input)
+        private bool InRange((int X, int Y) pos, char[][] input)
         {
             return pos.X < input.Length && pos.X >= 0 && pos.Y < input[0].Length && pos.Y >= 0;
         }
 
-        private (int X, int Y) FindStart(string[] input)
+        private (int X, int Y) FindStart(char[][] input)
         {
             for (int i = 0; i < input.Length; i++)
             {

@@ -22,7 +22,7 @@ namespace Advent_of_Coding_2024.Days
             }
             var pos = FindStart(input);
             var dir = new Pos(-1, 0);
-            while (InRange(pos, input))
+            while (true)
             {
                 visited[pos.X][pos.Y] = true;
                 var nextPos = pos + dir;
@@ -58,7 +58,7 @@ namespace Advent_of_Coding_2024.Days
                     var dir = new Pos(-1, 0);
                     var pos = new Pos(origPos);
 
-                    while (InRange(pos, map))
+                    while (true)
                     {
                         var nextPos = pos + dir;
                         if (!InRange(nextPos, input))

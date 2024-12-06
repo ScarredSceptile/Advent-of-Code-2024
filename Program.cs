@@ -6,7 +6,7 @@ namespace Advent_of_Coding_2024
     {
         static void Main(string[] args)
         {
-            var day = new Day5();
+            var day = new Day6();
             day.Star2();
         }
     }

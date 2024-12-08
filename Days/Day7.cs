@@ -34,7 +34,7 @@ namespace Advent_of_Coding_2024.Days
         private bool CanBePossibleConcat(long value, long[] values, long curValue = 0, int index = 0)
         {
 
-            if (index == values.Length)
+            if (index == values.Length || curValue > value)
                 return curValue == value;
             else
             {

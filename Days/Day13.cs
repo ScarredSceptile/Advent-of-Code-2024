@@ -1,6 +1,4 @@
-﻿using System.Reflection.PortableExecutable;
-
-namespace Advent_of_Coding_2024.Days
+﻿namespace Advent_of_Coding_2024.Days
 {
     internal class Day13 : Day
     {
@@ -26,7 +24,7 @@ namespace Advent_of_Coding_2024.Days
                 var priceVals = lines[2].Split(": ")[1].Split(", ");
                 (long X, long Y) a = (long.Parse(aVals[0].Split('+')[1]), long.Parse(aVals[1].Split('+')[1]));
                 (long X, long Y) b = (long.Parse(bVals[0].Split('+')[1]), long.Parse(bVals[1].Split('+')[1]));
-                (long X, long Y) price = (long.Parse(priceVals[0].Split('=')[1]) + addition , long.Parse(priceVals[1].Split('=')[1]) + addition );
+                (long X, long Y) price = (long.Parse(priceVals[0].Split('=')[1]) + addition, long.Parse(priceVals[1].Split('=')[1]) + addition);
 
                 var x = (price.X * b.Y - b.X * price.Y)/(double)(a.X * b.Y - b.X * a.Y);
                 var y = (a.X * price.Y - price.X * a.Y)/(double)(a.X * b.Y - b.X * a.Y);

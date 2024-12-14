@@ -9,7 +9,7 @@ namespace Advent_of_Coding_2024
         {
             var time = new Stopwatch();
             time.Start();
-            var day = new Day13();
+            var day = new Day14();
             day.Star2();
             time.Stop();
             Console.WriteLine(time.Elapsed);

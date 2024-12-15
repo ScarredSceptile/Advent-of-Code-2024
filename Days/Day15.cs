@@ -60,6 +60,11 @@
                     else
                     {
                         var boxes = canMove.boxes.Distinct().ToArray();
+                        if (dir.X == 1)
+                            boxes = boxes.OrderBy(c => c.X).ToArray();
+                        else
+                            boxes = boxes.OrderByDescending(c => c.X).ToArray();
+
                         for (int i = boxes.Length - 1; i >= 0; i--)
                         {
                             map[boxes[i].X + dir.X][boxes[i].Y] = map[boxes[i].X][boxes[i].Y];
@@ -174,7 +179,7 @@
                 {
                     if (input[i][j] == '@')
                     {
-                        //input[i][j] = '.';
+                        input[i][j] = '.';
                         return (i, j);
                     }
                 }

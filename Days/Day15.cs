@@ -37,7 +37,7 @@
 
         public void Star2()
         {
-            var input = Input.GetSingle("Day15").Split("\r\n\r\n").Select(n => n.Split("\r\n").ToArray()).ToArray();
+            var input = Input.GetSingle("Test").Split("\r\n\r\n").Select(n => n.Split("\r\n").ToArray()).ToArray();
             var movement = string.Join("", input[1]);
             var map = input[0].Select(n => string.Join("", n.Select(c => ReplaceTile(c)).ToArray())).Select(n => n.ToArray()).ToArray();
             var botPos = FindStart(map);

@@ -14,35 +14,21 @@ namespace Advent_of_Coding_2024.Days
             var input = Input.GetSingle("Day17").Split("\r\n\r\n");
             var registers = input[0].Split("\r\n").Select(n => n.Split(": ")[1]).Select(long.Parse).ToArray();
             var program = input[1].Split(": ")[1].Split(',').Select(int.Parse).ToArray(); List<long> output = new();
+            //registers[0] = 262144;
             Console.WriteLine(GetOutput(registers, program));
         }
 
         public void Star2()
         {
-            var input = Input.GetSingle("Day17").Split("\r\n\r\n");
+            var input = Input.GetSingle("test").Split("\r\n\r\n");
             var registers = input[0].Split("\r\n").Select(n => n.Split(": ")[1]).Select(long.Parse).ToArray();
             var program = input[1].Split(": ")[1].Split(',').Select(int.Parse).ToArray();
-            var wanted = input[1].Split(": ")[1];
-            long a = 164278764924616;
-            for (int i = 1; i <= program.Length; i++)
+            registers[0] = 0;
+            for (int i = program.Length - 1; i >= 0; i--)
             {
-                var next = string.Join(",", program[^i..]);
-                Console.WriteLine("Looking for: " + next);
-                int c = 0;
-                for (; ; )
-                {
-                    registers = input[0].Split("\r\n").Select(n => n.Split(": ")[1]).Select(long.Parse).ToArray();
-                    registers[0] = a;
-                    var output = GetOutput(registers, program);
-                    Console.WriteLine($"{a}: {output}");
-                    if (output == wanted)
-                        break;
-                    a--;
-                    c++;
-                }
-                a *= 8;
+                ReverseOutput(registers, program[..^2], program[i]);
             }
-            Console.WriteLine(a);
+            Console.WriteLine(registers[0]);
         }
 
         private string GetOutput(long[] registers, int[] program)
@@ -89,6 +75,42 @@ namespace Advent_of_Coding_2024.Days
                 }
             }
             return string.Join(",", output);
+        }
+
+        private void ReverseOutput(long[] registers, int[] program, int value)
+        {
+            List<int> output = new();
+            for (int i = program.Length - 2; i >= 0; i-= 2)
+            {
+                switch (program[i])
+                {
+                    case 0:
+                        var increase = (long)Math.Pow(2, GetOperandValue(program[i + 1], registers));
+                        if (registers[0] == 0)
+                            registers[0] = increase;
+                        else registers[0] *= increase;
+                        break;
+                    case 1:
+                        registers[1] = registers[1] ^ program[i + 1];
+                        break;
+                    case 2:
+                        registers[0]  += (registers[1] - registers[0]) % 8;
+                        break;
+                    case 4:
+                        registers[1] = registers[1] ^ registers[2];
+                        break;
+                    case 5:
+                        registers[1] = value;
+                        break;
+                    case 6:
+                        registers[0] += registers[0] - (registers[1] * (long)Math.Pow(2, GetOperandValue(program[i + 1], registers)));
+                        break;
+                    case 7:
+                        registers[0] += registers[0] - (registers[2] * (long)Math.Pow(2, GetOperandValue(program[i + 1], registers)));
+                        break;
+                    default: break;
+                }
+            }
         }
 
         private long GetOperandValue(int operand, long[] registers)

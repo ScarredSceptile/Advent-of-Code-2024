@@ -11,7 +11,7 @@ namespace Advent_of_Coding_2024.Days
     {
         public void Star1()
         {
-            var input = Input.GetSingle("Day17").Split("\r\n\r\n");
+            var input = Input.GetSingle("test").Split("\r\n\r\n");
             var registers = input[0].Split("\r\n").Select(n => n.Split(": ")[1]).Select(long.Parse).ToArray();
             var program = input[1].Split(": ")[1].Split(',').Select(int.Parse).ToArray(); List<long> output = new();
             //registers[0] = 262144;
@@ -88,7 +88,7 @@ namespace Advent_of_Coding_2024.Days
                         var increase = (long)Math.Pow(2, GetOperandValue(program[i + 1], registers));
                         if (registers[0] == 0)
                             registers[0] = increase;
-                        else registers[0] *= increase;
+                        else    registers[0] *= increase;
                         break;
                     case 1:
                         registers[1] = registers[1] ^ program[i + 1];
